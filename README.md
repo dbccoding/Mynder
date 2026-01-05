@@ -2,6 +2,8 @@
 
 A secure, lightweight journaling app that helps you capture daily thoughts, manage tasks, and organize events with military-grade encryption.
 
+Mynder is 100% local. Your thoughts and feelings never leave your device. Only you can access your journal. All data is encrypted before it's stored. No data is sent to external servers. No one is trying to get inside your head. It's just you and your Mynder. 
+
 ## Features
 
 - **Progressive Web App**: Install on desktop or mobile devices for native app experience
