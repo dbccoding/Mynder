@@ -1,4 +1,4 @@
-# Mynder
+# Chie
 
 A secure, lightweight journaling app that helps you capture daily thoughts, manage tasks, and organize events with military-grade encryption.
 

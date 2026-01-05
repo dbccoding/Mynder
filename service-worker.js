@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mynder-cache-v1';
+const CACHE_NAME = 'chie-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
@@ -97,16 +97,16 @@ self.addEventListener('push', (event) => {
   console.log('[Service Worker] Push received:', event);
   
   const options = {
-    body: event.data ? event.data.text() : 'New notification from Mynder',
+    body: event.data ? event.data.text() : 'New notification from Chie',
     icon: './icon-192.png',
     badge: './icon-192.png',
     vibrate: [200, 100, 200],
-    tag: 'mynder-notification',
+    tag: 'chie-notification',
     requireInteraction: false
   };
 
   event.waitUntil(
-    self.registration.showNotification('Mynder', options)
+    self.registration.showNotification('Chie', options)
   );
 });
 

@@ -1,7 +1,7 @@
 // ===== Database & Encryption Setup =====
 
 // Initialize Dexie database
-const db = new Dexie('MynderDB');
+const db = new Dexie('ChieDB');
 db.version(1).stores({
     journals: '++id, date, title',
     tasks: '++id, createdAt, completed',
@@ -370,12 +370,12 @@ document.getElementById('copy-recovery-btn').addEventListener('click', () => {
 
 // Download recovery key
 document.getElementById('download-recovery-btn').addEventListener('click', () => {
-    const text = `Mynder Recovery Key\n\nIMPORTANT: Keep this key safe and secure!\n\nYour Recovery Key:\n${tempRecoveryKey}\n\nDate: ${new Date().toLocaleString()}\n\nIf you forget your password, you can use this recovery key to regain access to your encrypted journal data.`;
+    const text = `Chie Recovery Key\n\nIMPORTANT: Keep this key safe and secure!\n\nYour Recovery Key:\n${tempRecoveryKey}\n\nDate: ${new Date().toLocaleString()}\n\nIf you forget your password, you can use this recovery key to regain access to your encrypted journal data.`;
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'mynder-recovery-key.txt';
+    a.download = 'chie-recovery-key.txt';
     a.click();
     URL.revokeObjectURL(url);
 });
@@ -1466,7 +1466,7 @@ function checkJournalReminder() {
             Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24)) : null;
         
         if (daysSinceLastEntry === null) {
-            showNotification('Welcome to Mynder!', 'Start your journaling journey today!');
+            showNotification('Welcome to Chie!', 'Start your journaling journey today!');
         } else if (daysSinceLastEntry > 0) {
             showNotification('Journal Reminder', 
                 `You haven't journaled today. It's been ${daysSinceLastEntry} day${daysSinceLastEntry > 1 ? 's' : ''} since your last entry!`);
@@ -1586,7 +1586,7 @@ async function initApp() {
         setTimeout(() => showWelcomeBanner(welcomeMsg), 500);
     } else {
         // First time ever accessing the app
-        setTimeout(() => showWelcomeBanner("Welcome to Mynder. This is your space."), 500);
+        setTimeout(() => showWelcomeBanner("Welcome to Chie. This is your space."), 500);
     }
     
     // Update last access time

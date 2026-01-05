@@ -1,6 +1,6 @@
 {
-  "name": "Mynder - Secure Personal Journal",
-  "short_name": "Mynder",
+  "name": "Chie - Secure Personal Journal",
+  "short_name": "Chie",
   "description": "A secure, encrypted journaling app with task management and calendar features",
   "start_url": "./index.html",
   "display": "standalone",
