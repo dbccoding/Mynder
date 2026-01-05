@@ -1,23 +1,47 @@
 # Mynder
 
-A lightweight journaling app that helps you capture daily thoughts, manage tasks, and organize events.
+A secure, lightweight journaling app that helps you capture daily thoughts, manage tasks, and organize events with military-grade encryption.
 
 ## Features
 
+- **Mini Calendar Widget**: Compact monthly calendar at the top of the page showing days with journal entries (green dots) and scheduled events (purple dots)
 - **Daily Journal Entries**: Write multiple journal entries per day with timestamps
 - **Task Management**: Create and manage task checklists and to-do lists
 - **Event Calendar**: Schedule and track upcoming events with date/time
 - **Smart Notifications**: 
   - Reminds you if you haven't journaled today
-  - Alerts you about upcoming events (within 1 hour)
-- **Local Storage**: All your data is stored locally in your browser for privacy and offline access
+  - Alerts you 1 hour before events
+  - Notifies when events start (within 2-minute window)
+  - Browser notifications if permission granted
+  - Checks every minute for accurate timing
+- **Password Protection**: Lock and unlock the app with a password
+- **AES-GCM Encryption**: All data encrypted with 256-bit keys before storage
+- **Secure Database**: Uses Dexie (IndexedDB) for larger storage capacity and better performance
 
 ## How to Use
 
 ### Getting Started
 
 1. Open `index.html` in your web browser
-2. The app will request notification permissions (optional, but recommended for reminders)
+2. On first launch, create a password (minimum 6 characters)
+   - WARNING: Password cannot be recovered. If forgotten, all data is permanently inaccessible
+   - Store your password securely
+3. The app will automatically migrate any existing localStorage data and encrypt it
+4. The app will request notification permissions (optional, but recommended for event reminders)
+
+### Locking and Unlocking
+
+- Click the lock button in the header to manually lock the app
+- When locked, all data is cleared from memory and the encryption key is destroyed
+- Enter your password to unlock and access your data again
+
+### Mini Calendar
+
+- Located at the top of the page below the header
+- Shows current month with navigation arrows to browse other months
+- Green dots indicate days with journal entries
+- Purple dots indicate days with scheduled events
+- Current day is highlighted in purple
 
 ### Journal
 
@@ -49,25 +73,66 @@ A lightweight journaling app that helps you capture daily thoughts, manage tasks
 ### Notifications
 
 The app automatically checks:
-- **Journal Reminders**: Shows a notification if you haven't journaled today
-- **Event Reminders**: Alerts you about events happening within the next hour
+- **Journal Reminders**: Shows a notification if you haven't journaled today (checks every 30 minutes)
+- **Event Reminders**: 
+  - Alerts you 1 hour before events (once per event)
+  - Notifies when event time is reached (within 2-minute window)
+  - Checks every minute for accurate timing
+  - Shows both in-app notifications and browser notifications (if permission granted)
 
-Reminders check every 30 minutes while the app is open.
+## Security
+
+### Encryption
+
+- **AES-GCM 256-bit encryption**: Military-grade encryption for all stored data
+- **PBKDF2 key derivation**: Password is hashed with 100,000 iterations
+- **Unique IVs**: Each encrypted item uses a unique initialization vector
+- **No plain text storage**: All journals, tasks, and events are encrypted before being saved
+
+### Password System
+
+- Password is required to access the app
+- Encryption key derived from your password
+- Password hash stored separately for verification
+- Encryption key exists only in memory while app is unlocked
+- When locked, encryption key is completely wiped from memory
+
+### Data Storage
+
+- Uses Dexie (IndexedDB wrapper) for encrypted data storage
+- Much larger storage capacity than localStorage (typically 50MB+)
+- Better performance for large datasets
+- All data remains local to your device
+
+### Important Security Notes
+
+- Password is NOT recoverable - if you forget it, your data is permanently lost
+- Write down your password and store it securely
+- No backdoor or master key exists
+- Data cannot be accessed without the correct password
+- Encryption key is never stored on disk
 
 ## Technical Details
 
-- **No dependencies**: Pure HTML, CSS, and JavaScript
+- **Dependencies**: Dexie v3.2.4 (loaded via CDN)
+- **Encryption**: Web Crypto API (built into modern browsers)
 - **Responsive design**: Works on desktop and mobile devices
-- **Data persistence**: Uses browser's localStorage API
-- **Lightweight**: Total size under 20KB
+- **Data persistence**: IndexedDB with AES-GCM encryption
+- **Storage capacity**: 50MB+ (browser dependent)
 
 ## Browser Compatibility
 
 Works in all modern browsers that support:
 - ES6 JavaScript
-- localStorage API
+- Web Crypto API (for encryption)
+- IndexedDB API
 - Notification API (optional, for enhanced notifications)
+
+Tested on:
+- Chrome/Edge 80+
+- Firefox 75+
+- Safari 14+
 
 ## Privacy
 
-All data is stored locally in your browser. No data is sent to external servers. Your journal entries, tasks, and events remain private on your device.
+All data is stored locally in your browser with AES-256 encryption. No data is sent to external servers. Your journal entries, tasks, and events remain completely private on your device. Even if someone gains access to your device's storage, the data is encrypted and cannot be read without your password.
