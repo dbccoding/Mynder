@@ -7,6 +7,8 @@ A secure, lightweight journaling app that helps you capture daily thoughts, mana
 - **Progressive Web App**: Install on desktop or mobile devices for native app experience
 - **Offline Support**: Full functionality works offline via service worker caching
 - **Mini Calendar Widget**: Compact monthly calendar at the top of the page showing days with journal entries (green dots) and scheduled events (purple dots)
+  - **Collapsible Calendar**: Toggle button to collapse/expand calendar to save screen space
+  - Persistent state - your preference is remembered
 - **Daily Journal Entries**: Write multiple journal entries per day with timestamps
 - **Task Management**: Create and manage task checklists and to-do lists
 - **Event Calendar**: Schedule and track upcoming events with date/time
@@ -16,6 +18,16 @@ A secure, lightweight journaling app that helps you capture daily thoughts, mana
   - Notifies when events start (within 2-minute window)
   - Browser notifications if permission granted
   - Checks every minute for accurate timing
+- **Intelligent Messaging System**:
+  - **Supportive Messages**: Context-aware messages after saving entries (time of day, entry length, frequency, return patterns)
+  - **Welcome Messages**: Personalized greetings based on how long since your last visit
+  - **Coach Messages**: Empathetic reflections on your emotional state and guidance
+- **Mood Ring**: Real-time sentiment analysis with adaptive background colors
+  - Analyzes journal entries using PAD (Pleasure-Arousal-Dominance) emotional model
+  - Background color reflects your most recent emotional state
+  - Smooth 3-second color transitions between moods
+  - Toggle on/off with preference saved
+  - Colors range from warm golden (joyful) to cool blue-gray (melancholic)
 - **Password Protection**: Lock and unlock the app with a password
 - **AES-GCM Encryption**: All data encrypted with 256-bit keys before storage
 - **Secure Database**: Uses Dexie (IndexedDB) for larger storage capacity and better performance
@@ -87,6 +99,58 @@ Don't panic! You have a recovery option:
 - Green dots indicate days with journal entries
 - Purple dots indicate days with scheduled events
 - Current day is highlighted in purple
+- **Collapse/Expand**: Click the arrow button (▼) on the right to collapse the calendar and save screen space
+  - Collapsed state shows only the month/year and navigation
+  - Your preference is saved and remembered across sessions
+
+### Mood Ring Feature
+
+The app analyzes the sentiment of your journal entries using the PAD (Pleasure-Arousal-Dominance) emotional model and reflects your mood through subtle background colors:
+
+- **Excited/Joyful** (high pleasure + energy): Warm golden background (#FFF4D6)
+- **Calm/Content** (high pleasure + low energy): Soft peachy background (#FFEEE0)
+- **Anxious/Stressed** (low pleasure + high energy): Cool lavender background (#E8DFF5)
+- **Sad/Melancholic** (low pleasure + low energy): Blue-gray background (#E0EBF5)
+- **Neutral**: Light gray background (#F5F7FA)
+
+**How it works:**
+- When you save a journal entry, the app analyzes emotional keywords
+- Background color smoothly transitions (3 seconds) to reflect the detected mood
+- On app load, the background reflects your most recent entry's mood
+- Toggle the "Mood Ring" switch in the header to enable/disable this feature
+- Your preference is saved
+
+**Privacy:** All sentiment analysis happens locally in your browser - no data is sent anywhere.
+
+### Intelligent Messaging
+
+The app provides three types of contextual messages to create a supportive journaling experience:
+
+**1. Supportive Messages** (bottom notification after saving):
+- **Time-aware**: Different messages for late night, early morning, morning, and evening entries
+- **Frequency-aware**: Acknowledges when you're journaling multiple times per day
+- **Return patterns**: Welcomes you back after gaps in journaling
+- **Length-aware**: Responds appropriately to short check-ins vs. long reflections
+
+**2. Welcome Messages** (top banner on app load):
+- **Daily users**: Brief, warm greeting
+- **Regular users** (1 day gap): Friendly check-in
+- **Returning users** (2-4 days): Acknowledging absence without pressure
+- **Long absence** (5+ days): Supportive, no-judgment welcome back
+
+**3. Coach Messages** (top banner after saving, appears 4.5 seconds after supportive message):
+- Based on sentiment analysis of your journal entry
+- Provides empathetic reflections on your emotional state
+- Offers gentle guidance and validation
+- Examples:
+  - Excited/Joyful: "Your energy is contagious right now! Let's capture this feeling..."
+  - Calm/Content: "There's a real sense of peace in your words. That's worth acknowledging."
+  - Anxious/Stressed: "I can sense some tension here. Writing it down is the first step..."
+  - Sad/Depressed: "It's okay to have days like this. You showed up, and that matters."
+  - Low Control: "When things feel out of control, small actions can help..."
+  - High Control: "You sound ready to tackle what's ahead. That determination is powerful."
+
+All messages are designed to be supportive without being intrusive, creating a sense of companionship in your journaling practice.
 
 ### Journal
 
@@ -164,6 +228,7 @@ The app automatically checks:
 - Much larger storage capacity than localStorage (typically 50MB+)
 - Better performance for large datasets
 - All data remains local to your device
+- **Sentiment data**: Each journal entry includes encrypted sentiment scores (pleasure, arousal, dominance) for mood tracking
 
 ### Important Security Notes
 
@@ -174,6 +239,7 @@ The app automatically checks:
 - Master encryption key is never stored unencrypted
 - Encryption key is never stored on disk
 - All cryptographic operations use Web Crypto API (browser's built-in security)
+- **Sentiment analysis**: Happens entirely in-browser - no data sent to external services
 
 ## Technical Details
 
@@ -181,10 +247,15 @@ The app automatically checks:
 - **PWA**: Service Worker with offline caching support
 - **Manifest**: Web App Manifest for installability
 - **Encryption**: Web Crypto API (built into modern browsers)
+- **Sentiment Analysis**: PAD (Pleasure-Arousal-Dominance) emotional model with keyword-based scoring
+  - 100+ emotion keywords across pleasure, arousal, and dominance dimensions
+  - Scores normalized to -1 to 1 range for consistent analysis
+  - Runs entirely client-side for privacy
 - **Responsive design**: Works on desktop and mobile devices
 - **Data persistence**: IndexedDB with AES-GCM encryption
 - **Storage capacity**: 50MB+ (browser dependent)
 - **Offline**: Fully functional without internet connection
+- **Color transitions**: CSS custom properties with 3-second smooth transitions
 
 ## Service Worker Capabilities
 
@@ -225,3 +296,12 @@ Note: PWA installation experience varies by browser and platform.
 ## Privacy
 
 All data is stored locally in your browser with AES-256 encryption. No data is sent to external servers. Your journal entries, tasks, and events remain completely private on your device. Even if someone gains access to your device's storage, the data is encrypted and cannot be read without your password.
+
+**Privacy Highlights:**
+- **Zero external communication**: No analytics, no tracking, no data collection
+- **Local sentiment analysis**: All emotional analysis happens in your browser
+- **Encrypted sentiment data**: Even mood scores are encrypted before storage
+- **No cloud sync**: Your data never leaves your device
+- **Complete anonymity**: The app doesn't know who you are or what you write
+
+This is a journaling app built with your privacy as the absolute priority.
