@@ -1,0 +1,30 @@
+async function exportKoyaData() {
+  try {
+    // 1. Pull everything from your entries table
+    const allEntries = await db.entries.toArray();
+    
+    // 2. Convert the array to a JSON string
+    const dataStr = JSON.stringify(allEntries, null, 2);
+    
+    // 3. Create a 'Blob' (Binary Large Object) of the data
+    const blob = new Blob([dataStr], { type: "application/json" });
+    
+    // 4. Create a temporary 'download link' in memory
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    
+    link.href = url;
+    link.download = `Chie_Koya_Backup_${new Date().toISOString().split('T')[0]}.json`;
+    
+    // 5. Trigger the download and cleanup
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    console.log("Export successful. Chie is happy.");
+  } catch (err) {
+    console.error("Export failed:", err);
+    alert("Could not export data. Check console for details.");
+  }
+}

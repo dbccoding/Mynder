@@ -218,3 +218,47 @@ async function deleteEventFromDB(id) {
         }
     }
 }
+
+// Export all user data as JSON
+async function exportAllData() {
+    try {
+        // Ensure all data is loaded and decrypted
+        await loadJournalsFromDB();
+        await loadTasksFromDB();
+        await loadEventsFromDB();
+        
+        // Bundle all data together
+        const exportData = {
+            exportDate: new Date().toISOString(),
+            appVersion: "Chie 1.0",
+            journals: journalEntries,
+            tasks: tasks,
+            events: events
+        };
+        
+        // Convert to JSON string
+        const dataStr = JSON.stringify(exportData, null, 2);
+        
+        // Create a Blob (Binary Large Object) of the data
+        const blob = new Blob([dataStr], { type: "application/json" });
+        
+        // Create a temporary download link
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        
+        link.href = url;
+        link.download = `Chie_Backup_${new Date().toISOString().split('T')[0]}.json`;
+        
+        // Trigger download and cleanup
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        console.log("Export successful");
+        alert("Data exported successfully!");
+    } catch (err) {
+        console.error("Export failed:", err);
+        alert("Could not export data. Check console for details.");
+    }
+}

@@ -274,6 +274,12 @@ function setupEventListeners() {
         }
     });
     
+    document.getElementById('export-data-btn').addEventListener('click', async () => {
+        if (confirm('Export all your data to a JSON file?')) {
+            await exportAllData();
+        }
+    });
+    
     // ===== Tab Switching =====
     
     document.querySelectorAll('.tab-btn').forEach(button => {
