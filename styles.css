@@ -723,7 +723,7 @@ textarea:focus {
 .btn-text {
     background: none;
     border: none;
-    color: #667eea;
+    color: #2c4fed;
     cursor: pointer;
     font-size: 0.9em;
     text-decoration: underline;
@@ -732,7 +732,7 @@ textarea:focus {
 }
 
 .btn-text:hover {
-    color: #5568d3;
+    color: #1d32a8;
 }
 
 .warning-box {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#667eea">
     <meta name="description" content="A secure, encrypted journaling app with task management and calendar features">
-    <title>Chie - Journaling App</title>
+    <title> ちえ chie - let's talk</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/dexie@3.2.4/dist/dexie.min.js"></script>
@@ -19,13 +19,13 @@
     <!-- Password Lock Screen -->
     <div id="lock-screen" class="lock-screen">
         <div class="lock-container">
-            <h1>🔒 Chie</h1>
+            <h1>ちえ chie</h1>
             <p class="lock-subtitle">Secure Personal Journal</p>
             
             <!-- Onboarding Step 1: Welcome -->
             <div id="onboarding-welcome" class="password-form" style="display: none;">
                 <h3>Welcome to Chie</h3>
-                <p class="info-text">Chie keeps your journal entries, tasks, and events secure with military-grade encryption. Your data never leaves your device.</p>
+                <p class="info-text">Chie keeps your journal entries, tasks, and events secure. Your data never leaves your device.</p>
                 <p class="info-text">Let's set up your secure account in 3 quick steps.</p>
                 <button id="start-onboarding-btn" class="btn-primary">Get Started</button>
             </div>
@@ -95,8 +95,8 @@
             <!-- Unlock with Password -->
             <div id="unlock-password" class="password-form" style="display: none;">
                 <h3>Welcome Back</h3>
-                <p class="info-text">Enter your password to unlock your journal</p>
-                <input type="password" id="unlock-password-input" placeholder="Enter password" />
+
+                <input type="password" id="unlock-password-input" placeholder="Enter password to unlock" />
                 <button id="unlock-btn" class="btn-primary">Unlock</button>
                 <button id="show-recovery-option-btn" class="btn-text">Forgot password? Use recovery key</button>
                 <div id="unlock-error" class="error-message"></div>

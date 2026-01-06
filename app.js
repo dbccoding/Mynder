@@ -1,12 +1,5 @@
 // ===== Main App Initialization & Coordination =====
 
-// Testing override - set to true to bypass lock screen
-// Usage: Run in console: localStorage.setItem('lockOverride', 'true')
-// To disable: localStorage.removeItem('lockOverride')
-function isLockOverrideEnabled() {
-    return localStorage.getItem('lockOverride') === 'true';
-}
-
 // Lock the app
 function lockApp() {
     clearKeys();
@@ -203,24 +196,6 @@ document.getElementById('unlock-recovery-btn').addEventListener('click', async (
 
 // Lock app button
 document.getElementById('lock-app-btn').addEventListener('click', () => {
-    // Check for lock override (testing mode)
-    if (isLockOverrideEnabled()) {
-        console.log('🔓 Lock override enabled - bypassing authentication');
-        document.getElementById('lock-screen').style.display = 'none';
-        document.querySelector('.container').style.display = 'block';
-        
-        // Create a dummy encryption key for testing
-        const dummyKey = await crypto.subtle.generateKey(
-            { name: 'AES-GCM', length: 256 },
-            true,
-            ['encrypt', 'decrypt']
-        );
-        encryptionKey = dummyKey;
-        
-        await initApp();
-        return;
-    }
-    
     if (confirm('Lock the app? You\'ll need your password to unlock it.')) {
         lockApp();
     }
