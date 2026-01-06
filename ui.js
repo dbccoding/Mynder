@@ -196,6 +196,10 @@ function getWelcomeMessage(daysSinceLastAccess) {
 }
 
 function showWelcomeBanner(message) {
+    // Remove any existing welcome banners first
+    const existingBanners = document.querySelectorAll('.welcome-banner');
+    existingBanners.forEach(b => b.remove());
+    
     const banner = document.createElement('div');
     banner.className = 'welcome-banner';
     banner.innerHTML = `
@@ -528,6 +532,25 @@ function renderMiniCalendar() {
         dayEl.textContent = day;
         grid.appendChild(dayEl);
     }
+}
+
+// Calendar navigation functions
+function navigateToPrevMonth() {
+    currentCalendarMonth--;
+    if (currentCalendarMonth < 0) {
+        currentCalendarMonth = 11;
+        currentCalendarYear--;
+    }
+    renderMiniCalendar();
+}
+
+function navigateToNextMonth() {
+    currentCalendarMonth++;
+    if (currentCalendarMonth > 11) {
+        currentCalendarMonth = 0;
+        currentCalendarYear++;
+    }
+    renderMiniCalendar();
 }
 
 // ===== Journal UI Functions =====

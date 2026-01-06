@@ -57,24 +57,13 @@ header h1 {
     transition: all 0.3s ease;
 }
 
-.mini-calendar.collapsed {
-    padding: 10px 15px;
-}
-
-.mini-calendar.collapsed .calendar-weekdays,
-.mini-calendar.collapsed .calendar-grid {
-    display: none;
-}
-
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;    gap: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
 }
-
-.mini-calendar.collapsed .calendar-header {
-    margin-bottom: 0;}
 
 .calendar-month-year {
     font-size: 1.1em;
@@ -120,13 +109,6 @@ header h1 {
     transform: scale(1.1);
 }
 
-.mini-calendar.collapsed .calendar-toggle {
-    transform: rotate(-90deg);
-}
-
-.mini-calendar.collapsed .calendar-toggle:hover {
-    transform: rotate(-90deg) scale(1.1);
-}
 .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -216,6 +198,29 @@ header h1 {
 
 .calendar-day.today.has-journal::before {
     background: #d1fae5;
+}
+
+/* Collapsed Calendar State - must come after all base calendar styles */
+.mini-calendar.collapsed {
+    padding: 10px 15px;
+}
+
+.mini-calendar.collapsed .calendar-header {
+    margin-bottom: 0;
+}
+
+.mini-calendar.collapsed .calendar-weekdays,
+.mini-calendar.collapsed .calendar-grid,
+.mini-calendar.collapsed .calendar-nav {
+    display: none !important;
+}
+
+.mini-calendar.collapsed .calendar-toggle {
+    transform: rotate(-90deg);
+}
+
+.mini-calendar.collapsed .calendar-toggle:hover {
+    transform: rotate(-90deg) scale(1.1);
 }
 
 .tabs {
