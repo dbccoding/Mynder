@@ -3,6 +3,9 @@ const urlsToCache = [
   './',
   './index.html',
   './styles.css',
+  './database.js',
+  './crypto.js',
+  './ui.js',
   './app.js',
   './manifest.json',
   'https://unpkg.com/dexie@3.2.4/dist/dexie.min.js'

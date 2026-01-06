@@ -257,6 +257,33 @@ The app automatically checks:
 - **Offline**: Fully functional without internet connection
 - **Color transitions**: CSS custom properties with 3-second smooth transitions
 
+### Code Architecture
+
+The app is organized into modular JavaScript files for better maintainability:
+
+- **`database.js`** - Database operations and Dexie configuration
+  - Handles all encrypted CRUD operations for journals, tasks, and events
+  - Migration utilities for legacy localStorage data
+  
+- **`crypto.js`** - Encryption and security functions
+  - AES-GCM encryption/decryption
+  - PBKDF2 key derivation
+  - Password and recovery key management
+  
+- **`ui.js`** - UI rendering and event handlers
+  - Sentiment analysis and mood ring
+  - Calendar rendering
+  - Supportive messaging system
+  - All DOM manipulation and user interactions
+  
+- **`app.js`** - Application initialization and coordination
+  - Onboarding flow
+  - Lock/unlock functionality
+  - Tab switching
+  - App initialization and setup
+
+This modular structure makes the codebase easier to maintain while keeping deployment simple (no build step required).
+
 ## Service Worker Capabilities
 
 The service worker provides:
